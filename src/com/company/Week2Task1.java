@@ -1,9 +1,6 @@
 package com.company;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Week2Task1 {
@@ -57,7 +54,7 @@ public class Week2Task1 {
             new Person(5, "Amelia"),
             new Person(6, "Amelia"),
             new Person(7, "Amelia"),
-            new Person(8, "Amelia"),
+            new Person(8, "Amelia")
     };
         /*  Raw data:
 
@@ -124,7 +121,9 @@ public class Week2Task1 {
 
         Map<String, Long> collect =
                 Arrays.stream(RAW_DATA)
+                        .filter(Objects::nonNull)
                         .distinct()
+                        .sorted(Comparator.comparingInt(o -> o.id))
                         .collect(Collectors.groupingBy(Person::getName, Collectors.counting()));
         for (String s : collect.keySet()) {
             System.out.printf("""
@@ -136,7 +135,9 @@ public class Week2Task1 {
         System.out.println();
         //
         Map<String, List<Person>> collect1 = Arrays.stream(RAW_DATA)
+                .filter(Objects::nonNull)
                 .distinct()
+                .sorted(Comparator.comparingInt(o -> o.id))
                 .collect(Collectors.groupingBy(Person::getName));
         for (String s : collect1.keySet()) {
             System.out.println(s + ":");

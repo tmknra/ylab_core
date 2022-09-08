@@ -1,5 +1,9 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Week2Task3 {
     public static void main(String[] args) {
         /*
@@ -19,7 +23,16 @@ public class Week2Task3 {
         System.out.println(fuzzySearch("cwheeel", "cartwheel")); // false
         System.out.println(fuzzySearch("lw", "cartwheel")); // false
     }
+
     public static Boolean fuzzySearch(String pattern, String string) {
-        return string.replaceAll("[^" + pattern + "]", "").contains(pattern);
+        List<Character> list = new ArrayList<>();
+        for (int i = 0, j = 0; j < pattern.length() && i < string.length(); i++) {
+            if (pattern.charAt(j) != string.charAt(i)) continue;
+            list.add(pattern.charAt(j));
+            j++;
+        }
+        return pattern.equals(
+                list.stream().map(String::valueOf).collect(Collectors.joining())
+        );
     }
 }
